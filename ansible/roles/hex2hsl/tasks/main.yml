@@ -1,0 +1,10 @@
+---
+- name: Container is running
+  docker_container:
+    name: hex2hsl-{{ hex2hsl_branch }}
+    image: 192.168.50.91:5000/hex2hsl-{{ hex2hsl_branch }}
+    published_ports:
+    - "{{ hex2hsl_port }}:3100"
+    pull: yes
+    state: started
+    restart_policy: no

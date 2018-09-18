@@ -1,0 +1,16 @@
+- hosts: localhost
+  vars:
+    pip_install_packages:
+    - name: docker
+    docker_users:
+    - vagrant
+    docker_install_registry: True
+    workspace: /workspace
+  roles:
+    - ssh-key
+    - geerlingguy.pip
+    - geerlingguy.git
+    - geerlingguy.java
+    - docker
+    - gitlab
+    - jenkins

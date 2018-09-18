@@ -1,0 +1,44 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "centos/7"
+  config.vm.synced_folder "./../ansible", "/ansible", type: "virtualbox", mount_options: ["dmode=700,fmode=600"]
+  config.vm.synced_folder "./../workspace", "/workspace", type: "virtualbox", mount_options: ["dmode=700,fmode=600"]
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 1024
+    vb.cpus = 1
+  end
+
+  config.vm.define :turnkey, primary: true do |turnkey|
+    turnkey.vm.network :forwarded_port, host: 2201, guest: 22, id: "ssh", auto_correct: true
+    turnkey.vm.network :forwarded_port, host: 5000, guest: 5000 #docker registry
+    turnkey.vm.network :forwarded_port, host: 8002, guest: 8002 #gitlab
+    turnkey.vm.network :forwarded_port, host: 8003, guest: 8003 #jenkins
+    turnkey.vm.network "private_network", ip: "192.168.50.91"
+    turnkey.vm.provision "shell", path: "provision-bootstrap.sh"
+    turnkey.vm.provision :shell, inline: 'ansible-playbook /ansible/turnkey.yml -c local -v'
+    turnkey.vm.hostname = "turnkey"
+    turnkey.vm.provider "virtualbox" do |turnkey_vb|
+      turnkey_vb.memory = 4096
+      turnkey_vb.cpus = 4
+    end
+  end
+
+  config.vm.define :testing, primary: true do |testing|
+    testing.vm.network :forwarded_port, host: 2202, guest: 22, id: "ssh", auto_correct: true
+    testing.vm.network "private_network", ip: "192.168.50.92"
+    testing.vm.provision "shell", path: "provision-bootstrap.sh"
+    testing.vm.provision :shell, inline: 'ansible-playbook /ansible/app_server.yml -c local -v'
+    testing.vm.hostname = "testing"
+  end
+  config.vm.define :staging, primary: true do |staging|
+    staging.vm.network :forwarded_port, host: 2203, guest: 22, id: "ssh", auto_correct: true
+    staging.vm.network "private_network", ip: "192.168.50.93"
+    staging.vm.provision "shell", path: "provision-bootstrap.sh"
+    staging.vm.provision :shell, inline: 'ansible-playbook /ansible/app_server.yml -c local -v'
+    staging.vm.hostname = "staging"
+  end
+end

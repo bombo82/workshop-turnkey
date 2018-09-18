@@ -1,6 +1,12 @@
 # Turnkey Continuous Delivery
 
 TODO
+
+## Vagrant
+vagrant plugin install vagrant-vbguest
+
+## Ansible
+
 ___
 
 Copyright (C)  2018  Gianni Bombelli @ Intré S.r.l.

@@ -193,8 +193,8 @@ tags
 [._]*.un~
 ### Vagrant template
 # General
-.vagrant/
+vagrant/.vagrant/
 
 # Log files (if you are creating logs in debug mode, uncomment this)
-# *.logs
+*.log
 

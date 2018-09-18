@@ -1,0 +1,21 @@
+---
+- name: Ensure Jenkins data directory is present.
+  file:
+    path: /data/jenkins
+    state: directory
+    mode: 0777
+    owner: vagrant
+    group: vagrant
+    recurse: yes
+
+- name: Ensure Jenkins Container is running.
+  docker_container:
+    name: turnkey_jenkins
+    image: jenkins/jenkins:lts
+    published_ports:
+    - 8003:8080
+    volumes:
+    - /data/jenkins:/var/jenkins_home
+    - /ansible:/ansible
+    state: started
+    restart_policy: always

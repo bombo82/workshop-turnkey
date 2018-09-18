@@ -1,0 +1,20 @@
+---
+- name: Ensure registry data directory is present (if configured).
+  file:
+    path: /data/registry
+    state: directory
+    mode: 0777
+    owner: vagrant
+    group: vagrant
+    recurse: yes
+
+- name: Ensure docker-registry Container is running (if configured).
+  docker_container:
+    name: turnkey_registry
+    image: library/registry
+    published_ports:
+      - 5000:5000
+    volumes:
+      - /data/registry:/tmp/registry
+    state: started
+    restart_policy: always

@@ -1,0 +1,16 @@
+---
+- include_role:
+    name: geerlingguy.docker
+
+- include_tasks: docker-tcp.yml
+
+- name: Configure Docker local ensecure registry.
+  copy:
+    src: daemon.json
+    dest: /etc/docker
+  notify: restart docker
+
+- meta: flush_handlers
+
+- include_tasks: docker-registry.yml
+  when: docker_install_registry

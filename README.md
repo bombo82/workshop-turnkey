@@ -67,6 +67,7 @@ per avviare le VM basta lanciare un singolo comando!
 ```bash
 cd vagrant
 vagrant plugin install vagrant-vbguest
+vagrant vbguest
 vagrant up
 ```
 

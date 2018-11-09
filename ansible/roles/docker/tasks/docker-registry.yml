@@ -11,7 +11,7 @@
 - name: Ensure docker-registry Container is running (if configured).
   docker_container:
     name: turnkey_registry
-    image: library/registry
+    image: 192.168.1.162:8082/library/registry
     published_ports:
       - 5000:5000
     volumes:

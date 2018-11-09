@@ -11,7 +11,7 @@
 - name: Ensure Jenkins Container is running.
   docker_container:
     name: turnkey_jenkins
-    image: jenkins/jenkins:lts
+    image: 192.168.1.162:8082/jenkins/jenkins:lts
     published_ports:
     - 8003:8080
     volumes:

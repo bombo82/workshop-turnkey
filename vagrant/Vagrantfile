@@ -5,7 +5,8 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #  config.vm.box = "centos/7"
-  config.vm.box = "http://192.168.1.101:8081/repository/vagrant/centos7/CentOS-7-x86_64-Vagrant-1809_01.VirtualBox.box"
+  config.vm.box = "CentOS-7-x86_64"
+  config.vm.box_url = "http://192.168.1.101:8081/repository/vagrant/centos7/CentOS-7-x86_64-Vagrant-1809_01.VirtualBox.box"
   config.vm.synced_folder "./../ansible", "/ansible", type: "virtualbox", mount_options: ["dmode=700,fmode=600"]
   config.vm.provider "virtualbox" do |vb|
     vb.memory = 1024

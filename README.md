@@ -28,7 +28,7 @@ Abbiamo bisogno anche di alcuni ambienti separati per eseguire il nostro micro-s
 Ognuno di questi ambienti corrisponde a una VM dedicata.
 
 La nostra infrastruttura è costituita da 3 ambienti differenti che corrispondono 1:1 ad altrettante VMs e per la precisione:
-- **turnkley**: VM per SCM, repository binari e sistema automatizzato di build
+- **turnkey**: VM per SCM, repository binari e sistema automatizzato di build
 - **testing**: VM per effettuare i test del nostro micro-servizio
 - **staging**: VM configurata in modo identico a quelle di produzione
  
